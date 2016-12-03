@@ -129,30 +129,33 @@ final class Heap
 		
 		PathNode root = tempPath.get(1);
 		
-		ArrayList<PathNode> siblings = new ArrayList<PathNode>();
+		ArrayList<String> siblingStrings = new ArrayList<String>();
 		while (root != null)
 		{
 			output += "\n";
-			output += level + ":";
-			output += root;
+			output += level + ": ";
 			
+			siblingStrings.add(root.toString());
 			PathNode sibling = root.getSibling();
-			while (sibling != null)
+			if (sibling != null)
 			{
-				siblings.add(sibling);
-				sibling = sibling.getSibling();
+				while (sibling != null)
+				{
+					siblingStrings.add(sibling.toString());
+					sibling = sibling.getSibling();
+				}
+				 
+				Collections.reverse(siblingStrings);
 			}
-			 
-			for (
-				int siblingIndex = siblings.size() - 1;
-				siblingIndex >= 0;
-				--siblingIndex)
+			for (String siblingString : siblingStrings)
 			{
-				output += siblings.get(siblingIndex) + "-> ";
+				output += siblingString + "-> ";
 			}
-
+			siblingStrings.clear();
 			
-			root = root.getLeft();
+			output = output.substring(0, output.length() - 3);
+			
+			root = root.getRight();
 			++levelNumInt;
 			level = "Level " + levelNumInt;
 		}

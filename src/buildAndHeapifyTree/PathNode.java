@@ -103,14 +103,15 @@ final class PathNode
 	public String toString()
 	{
 		String description = (path.size() - 1) + "(";
+		
 		for (Integer vertex : path)
 		{
 			description += vertex + ", ";
 		}
-		String descriptionRefined = 
-			description.substring(0, description.length() - 1);
-		descriptionRefined += ")";
 		
-		return descriptionRefined;
+		description = description.substring(0, description.length() - 2);
+		description += ")";
+		
+		return description;
 	}
 }
