@@ -52,7 +52,7 @@ final class Heap
 		}
 	}
 	
-	private PathNode buildCompleteTree(
+	PathNode buildCompleteTree(
 		ArrayList<PathNode> tempPath,
 		int index,
 		PathNode newParent)
@@ -78,46 +78,18 @@ final class Heap
 		return currentPathNode;
 	}
 	
-//	private PathNode buildCompleteTree(
-//		ArrayList<PathNode> tempPaths,
-//		int index,
-//		PathNode newParent)
-//	{
-//		
-//		PathNode currentPathNode;
-//		for (int i = 1; i < (tempPaths.size() - 1); ++i)
-//		{			
-//			currentPathNode = tempPaths.get(index);
-//			int indexMultBy2 = 2 * index;
-//			if ((indexMultBy2 + 1) < (tempPaths.size() - 1))
-//			{				
-//				currentPathNode.setLeft(tempPath.get(indexMultBy2 + 1));
-//				tempPath.get(indexMultBy2 + 1).setParent(currentPathNode);
-//			}
-//			if ((indexMultBy2 + 2) < (tempPaths.size() - 1))
-//			{
-//				currentPathNode.setRight(tempPaths.get(indexMultBy2 + 2));	
-//				tempPath.get(indexMultBy2 + 2).setParent(currentPathNode);
-//				tempPath.get(indexMultBy2 + 1).setSibling(tempPaths.get(indexMultBy2 + 2));
-//				tempPath.get(indexMultBy2 + 2).setSibling(tempPaths.get(indexMultBy2 + 1));
-//			}
-//		}
-//		
-//		return currentPathNode;
-//	}
-	
-	private void setLevelEnd(PathNode root)
+	void setLevelEnd(PathNode root)
 	{
-		if (root.getLeft() == null)
+		if (root.getRight() == null)
 		{			
 			root.setIsLevelEnd(true);
 			return;
 		}
 		
-		setLevelEnd(root.getLeft());
+		setLevelEnd(root.getRight());
 	}
 	
-	private void setSiblingLinks(PathNode root)
+	void setSiblingLinks(PathNode root)
 	{
 		PathNode parent = root.getParent();
 		if (parent != null)
@@ -145,11 +117,38 @@ final class Heap
 		}
 	}
 	
-//	private void printTreeLevels()
-//	{
-//		
-//	}
-//	
+	void printTreeLevels()
+	{
+		// TODO string justification
+		
+		String output = "";
+		
+		String level = "Root";
+		int levelNumInt = 0;
+		
+		PathNode root = tempPath.get(1);
+		while (root != null)
+		{
+			output += "\n";
+			output += level + ":";
+			output += root;
+			
+			PathNode sibling = root.getSibling();
+			while (sibling != null)
+			{
+				output += sibling + "-> ";
+				sibling = sibling.getSibling();
+			}
+			output = output.substring(0, output.length() - 3);
+			
+			root = root.getLeft();
+			++levelNumInt;
+			level = "Level " + levelNumInt;
+		}
+		
+		System.out.print(output);
+	}
+	
 //	private void heapify()
 //	{
 //		

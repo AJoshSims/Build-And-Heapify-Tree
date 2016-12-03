@@ -6,6 +6,10 @@ public class HeapDriver
 	{
 		// TODO remove
 		Heap heap = new Heap();
-		heap.readPaths("input1.txt");
+		heap.readPaths("input3.txt");
+		heap.buildCompleteTree(heap.tempPath, 1, null);
+		heap.setLevelEnd(heap.tempPath.get(1));
+		heap.setSiblingLinks(heap.tempPath.get(1));
+		heap.printTreeLevels();
 	}
 }

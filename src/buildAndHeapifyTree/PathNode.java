@@ -98,4 +98,19 @@ final class PathNode
 	{
 		this.isLastNode = isLastNode;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String description = (path.size() - 1) + "(";
+		for (Integer vertex : path)
+		{
+			description += vertex + ", ";
+		}
+		String descriptionRefined = 
+			description.substring(0, description.length() - 1);
+		descriptionRefined += ")";
+		
+		return descriptionRefined;
+	}
 }
