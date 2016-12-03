@@ -3,6 +3,7 @@ package buildAndHeapifyTree;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 final class Heap
@@ -94,26 +95,26 @@ final class Heap
 		PathNode parent = root.getParent();
 		if (parent != null)
 		{
-			if (parent.getRight() != root)
+			if (parent.getLeft() != root)
 			{
-				root.setSibling(parent.getRight());				
+				root.setSibling(parent.getLeft());				
 			}
 			
 			else if(parent.getSibling() != null)
 			{
-				root.setSibling(parent.getSibling().getLeft());
+				root.setSibling(parent.getSibling().getRight());
 			}
 		}
 		
-		PathNode leftChild = root.getLeft();
 		PathNode rightChild = root.getRight();
-		if (leftChild != null)
-		{
-			setSiblingLinks(leftChild);
-		}
+		PathNode leftChild = root.getLeft();
 		if (rightChild != null)
 		{
 			setSiblingLinks(rightChild);
+		}
+		if (leftChild != null)
+		{
+			setSiblingLinks(leftChild);
 		}
 	}
 	
@@ -127,6 +128,8 @@ final class Heap
 		int levelNumInt = 0;
 		
 		PathNode root = tempPath.get(1);
+		
+		ArrayList<PathNode> siblings = new ArrayList<PathNode>();
 		while (root != null)
 		{
 			output += "\n";
@@ -136,10 +139,18 @@ final class Heap
 			PathNode sibling = root.getSibling();
 			while (sibling != null)
 			{
-				output += sibling + "-> ";
+				siblings.add(sibling);
 				sibling = sibling.getSibling();
 			}
-			output = output.substring(0, output.length() - 3);
+			 
+			for (
+				int siblingIndex = siblings.size() - 1;
+				siblingIndex >= 0;
+				--siblingIndex)
+			{
+				output += siblings.get(siblingIndex) + "-> ";
+			}
+
 			
 			root = root.getLeft();
 			++levelNumInt;
