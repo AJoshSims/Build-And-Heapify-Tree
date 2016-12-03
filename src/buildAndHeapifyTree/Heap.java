@@ -12,6 +12,7 @@ final class Heap
 	Heap()
 	{
 		tempPath = new ArrayList<PathNode>();
+		tempPath.add(null);
 	}
 	
 	void readPaths(String inputFile)
@@ -53,11 +54,14 @@ final class Heap
 		// TODO remove
 		for (PathNode thing01 : tempPath)
 		{
-			for (Integer thing02 : thing01.getPath())
+			if (thing01 != null)
 			{
-				System.out.print(thing02 + " ");
+				for (Integer thing02 : thing01.getPath())
+				{
+					System.out.print(thing02 + " ");
+				}
+				System.out.println("");
 			}
-			System.out.println("");
 		}
 
 	}
