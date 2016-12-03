@@ -11,5 +11,10 @@ public class HeapDriver
 		heap.setLevelEnd(heap.tempPath.get(1));
 		heap.setSiblingLinks(heap.tempPath.get(1));
 		heap.printTreeLevels();
+		
+		System.out.println("");
+		
+		heap.heapify();
+		heap.printTreeLevels();
 	}
 }
