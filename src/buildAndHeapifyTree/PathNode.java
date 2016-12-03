@@ -39,42 +39,42 @@ final class PathNode
 		path.add(vertex);
 	}
 
-	private PathNode getLeft()
+	PathNode getLeft()
 	{
 		return left;
 	}
 
-	private void setLeft(PathNode left)
+	void setLeft(PathNode left)
 	{
 		this.left = left;
 	}
 
-	private PathNode getParent()
-	{
-		return parent;
-	}
-	
-	private void setParent(PathNode parent)
-	{
-		this.parent = parent;
-	}
-
-	private PathNode getRight()
+	PathNode getRight()
 	{
 		return right;
 	}
 	
-	private void setRight(PathNode right)
+	void setRight(PathNode right)
 	{
 		this.right = right;
 	}
+	
+	PathNode getParent()
+	{
+		return parent;
+	}
+	
+	void setParent(PathNode parent)
+	{
+		this.parent = parent;
+	}
 
-	private PathNode getSibling()
+	PathNode getSibling()
 	{
 		return sibling;
 	}
 
-	private void setSibling(PathNode sibling)
+	void setSibling(PathNode sibling)
 	{
 		this.sibling = sibling;
 	}
@@ -84,7 +84,7 @@ final class PathNode
 		return isLevelEnd;
 	}
 	
-	private void setIsLevelEnd(Boolean isLevelEnd)
+	void setIsLevelEnd(Boolean isLevelEnd)
 	{
 		this.isLevelEnd = isLevelEnd;
 	}
