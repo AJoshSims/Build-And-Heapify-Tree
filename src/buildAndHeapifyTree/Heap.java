@@ -163,60 +163,60 @@ final class Heap
 		System.out.print(output);
 	}
 	
-	void heapify()
-	{
-		PathNode start = tempPath.get(tempPath.size() - 1);
-		
-		PathNode parent01 = start.getParent();
-		while (parent01 != null)
-		{
-			PathNode parent02 = parent01;
-			while (parent02 != null)
-			{
-				PathNode leftChildOfParent = parent02.getLeft();
-				PathNode rightChildOfParent = parent02.getRight();
-				
-				PathNode target = null;
-				if (
-					(leftChildOfParent != null)
-					&& (leftChildOfParent.getPathLength() 
-					< parent02.getPathLength())
-					&& ((rightChildOfParent == null)
-					|| (leftChildOfParent.getPathLength() 
-					< rightChildOfParent.getPathLength())))
-				{	
-					target = leftChildOfParent;
-				}
-				else if (
-					(rightChildOfParent != null)
-					&& (rightChildOfParent.getPathLength() 
-					< parent02.getPathLength()))
-				{
-					target = rightChildOfParent;
-				}
-				
-				if (target != null)
-				{
-					target.setParent(parent02.getParent());
-					parent02.setParent(leftChildOfParent);
-					
-					PathNode leftChildTemp = target.getLeft();
-					target.setLeft(parent02.getLeft());
-					parent02.setLeft(leftChildTemp);
-					
-					PathNode rightChildTemp = target.getRight();
-					target.setRight(parent02.getRight());
-					parent02.setRight(rightChildTemp);
-					
-					PathNode siblingTemp = target.getSibling();
-					target.setSibling(parent02.getSibling());
-					parent02.setSibling(siblingTemp);
-				}
-				
-				parent02 = parent02.getSibling();
-			}
-			
-			parent01 = parent01.getParent();
-		}
-	}
+//	void heapify()
+//	{
+//		PathNode start = tempPath.get(tempPath.size() - 1);
+//		
+//		PathNode parent01 = start.getParent();
+//		while (parent01 != null)
+//		{
+//			PathNode parent02 = parent01;
+//			while (parent02 != null)
+//			{
+//				PathNode leftChildOfParent = parent02.getLeft();
+//				PathNode rightChildOfParent = parent02.getRight();
+//				
+//				PathNode target = null;
+//				if (
+//					(leftChildOfParent != null)
+//					&& (leftChildOfParent.getPathLength() 
+//					< parent02.getPathLength())
+//					&& ((rightChildOfParent == null)
+//					|| (leftChildOfParent.getPathLength() 
+//					< rightChildOfParent.getPathLength())))
+//				{	
+//					target = leftChildOfParent;
+//				}
+//				else if (
+//					(rightChildOfParent != null)
+//					&& (rightChildOfParent.getPathLength() 
+//					< parent02.getPathLength()))
+//				{
+//					target = rightChildOfParent;
+//				}
+//				
+//				if (target != null)
+//				{
+//					target.setParent(parent02.getParent());
+//					parent02.setParent(leftChildOfParent);
+//					
+//					PathNode leftChildTemp = target.getLeft();
+//					target.setLeft(parent02.getLeft());
+//					parent02.setLeft(leftChildTemp);
+//					
+//					PathNode rightChildTemp = target.getRight();
+//					target.setRight(parent02.getRight());
+//					parent02.setRight(rightChildTemp);
+//					
+//					PathNode siblingTemp = target.getSibling();
+//					target.setSibling(parent02.getSibling());
+//					parent02.setSibling(siblingTemp);
+//				}
+//				
+//				parent02 = parent02.getSibling();
+//			}
+//			
+//			parent01 = parent01.getParent();
+//		}
+//	}
 }

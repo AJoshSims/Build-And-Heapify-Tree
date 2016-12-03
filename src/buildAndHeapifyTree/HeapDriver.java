@@ -14,7 +14,7 @@ public class HeapDriver
 		
 		System.out.println("");
 		
-		heap.heapify();
-		heap.printTreeLevels();
+//		heap.heapify();
+//		heap.printTreeLevels();
 	}
 }
