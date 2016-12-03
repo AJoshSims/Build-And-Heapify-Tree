@@ -149,8 +149,8 @@ final class Heap
 		System.out.print(output);
 	}
 	
-//	private void heapify()
-//	{
-//		
-//	}
+	private void heapify()
+	{
+		
+	}
 }
