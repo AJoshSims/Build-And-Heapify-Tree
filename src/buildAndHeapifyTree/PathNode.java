@@ -6,6 +6,8 @@ final class PathNode
 {
 	private ArrayList<Integer> path;
 	
+	private int pathLength = -1;
+	
 	private PathNode left;
 
 	private PathNode right;
@@ -37,6 +39,13 @@ final class PathNode
 	void addToPath(Integer vertex)
 	{
 		path.add(vertex);
+		
+		++pathLength;
+	}
+	
+	int getPathLength()
+	{
+		return pathLength;
 	}
 
 	PathNode getLeft()
@@ -102,7 +111,7 @@ final class PathNode
 	@Override
 	public String toString()
 	{
-		String description = (path.size() - 1) + "(";
+		String description = (pathLength) + "(";
 		
 		for (Integer vertex : path)
 		{

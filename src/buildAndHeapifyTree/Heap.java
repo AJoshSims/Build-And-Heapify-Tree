@@ -165,6 +165,40 @@ final class Heap
 	
 	private void heapify()
 	{
+		PathNode start = tempPath.get(tempPath.size() - 1);
 		
+		PathNode parent = start.getParent();
+		PathNode leftChildOfParent = parent.getLeft();
+		PathNode rightChildOfParent = parent.getRight();
+		
+		PathNode target = null;
+		if ((parent.getLeft().getPathLength() < parent.getPathLength())
+			&& (leftChildOfParent.getPathLength() 
+			< rightChildOfParent.getPathLength()))
+		{	
+			target = leftChildOfParent;
+		}
+		else if (rightChildOfParent.getPathLength() < parent.getPathLength())
+		{
+			target = rightChildOfParent;
+		}
+		
+		if (target != null)
+		{
+			target.setParent(parent.getParent());
+			parent.setParent(leftChildOfParent);
+			
+			PathNode leftChildTemp = target.getLeft();
+			target.setLeft(parent.getLeft());
+			parent.setLeft(leftChildTemp);
+			
+			PathNode rightChildTemp = target.getRight();
+			target.setRight(parent.getRight());
+			parent.setRight(rightChildTemp);
+			
+			PathNode siblingTemp = target.getSibling();
+			target.setSibling(parent.getSibling());
+			parent.setSibling(siblingTemp);
+		}
 	}
 }
