@@ -123,17 +123,15 @@ final class Heap
 		// TODO string justification
 		
 		String output = "";
-		
-		String level = "Root";
-		int levelNumInt = 0;
+		String level = "Root: ";
+		int levelNum = 0;
+		String siblingStringsConcatenated = "";
 		
 		PathNode root = tempPath.get(1);
-		
 		ArrayList<String> siblingStrings = new ArrayList<String>();
 		while (root != null)
 		{
-			output += "\n";
-			output += level + ": ";
+			output += level;
 			
 			siblingStrings.add(root.toString());
 			PathNode sibling = root.getSibling();
@@ -149,18 +147,23 @@ final class Heap
 			}
 			for (String siblingString : siblingStrings)
 			{
-				output += siblingString + "-> ";
+				siblingStringsConcatenated += siblingString + "-> ";
 			}
 			siblingStrings.clear();
 			
-			output = output.substring(0, output.length() - 3);
+			siblingStringsConcatenated = 
+				siblingStringsConcatenated.substring(
+				0, siblingStringsConcatenated.length() - 3);		
+
+			output += siblingStringsConcatenated;
+			siblingStringsConcatenated = "";
 			
+			++levelNum;
+			level = "\nLevel " + levelNum + ": ";
 			root = root.getRight();
-			++levelNumInt;
-			level = "Level " + levelNumInt;
 		}
 		
-		System.out.print(output);
+		System.out.println(output);
 	}
 	
 //	void heapify()
