@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import utilities.CommonConstants;
+
 final class Heap
 {
-	ArrayList<PathNode> tempPath;
+	public static final int ROOT_INDEX = 1;
+	
+	private ArrayList<PathNode> tempPath;
 	
 	Heap()
 	{
@@ -16,7 +20,23 @@ final class Heap
 		tempPath.add(null);
 	}
 	
-	void readPaths(String inputFile)
+	ArrayList<PathNode> getTempPath()
+	{
+		return tempPath;
+	}
+	
+	
+	/**
+	 * Reads the input file given at the command line and places the contents 
+	 * of each line into the path field found in each PathNode object. The 
+	 * order of PathNode objects is the same as found in the text file. 
+	 * Adds the new PathNode object to tempPath starting at tempPath[1].
+	 * 
+	 * @param inputFile - name of the input file to be read
+	 * @throws FileNotFoundException - if the input file was not found
+	 */
+	void readPaths(String inputFile) 
+		throws FileNotFoundException
 	{
 		try(Scanner fileParser = new Scanner(new File(inputFile)))
 		{
@@ -42,17 +62,21 @@ final class Heap
 				}
 			}
 		}
-		catch (FileNotFoundException e)
-		{
-			System.err.println(e.getMessage());
-			
-			// TODO remove
-			e.printStackTrace();
-			
-			System.exit(1);
-		}
 	}
 	
+	/**
+	 * Recursively builds a complete binary tree. Places PathNode objects in 
+	 * tempPath into a complete binary tree in order of appearance in the text 
+	 * file. The left child of a parent located at tempPaths[index] is found 
+	 * at tempPath[2*index] and the right child is found at 
+	 * tempPath[2*index + 1].
+	 * 
+	 * @param tempPath - holds the path information given via the input file 
+	 * @param index - the index of the current node in tempPath
+	 * @param newParent - parent of the current node
+	 * 
+	 * @return a reference to the node just placed in the tree
+	 */
 	PathNode buildCompleteTree(
 		ArrayList<PathNode> tempPath,
 		int index,
@@ -62,7 +86,10 @@ final class Heap
 		
 		currentPathNode.setParent(newParent);
 		
+		// The index of a left child is twice the index of its parent.
 		int indexOfLeftChild = (2 * index);
+		// The index of a right child is twice this index of its parent plus 
+		// one.
 		int indexOfRightChild = (2 * index) + 1;
 		if (indexOfLeftChild < tempPath.size())
 		{
@@ -79,6 +106,12 @@ final class Heap
 		return currentPathNode;
 	}
 	
+	/**
+	 * Recursive method which specifies which nodes are at the end of their 
+	 * level in the tree.
+	 * 
+	 * @param root - the root of a subtree (or of the entire tree)
+	 */
 	void setLevelEnd(PathNode root)
 	{
 		if (root.getRight() == null)
@@ -90,6 +123,13 @@ final class Heap
 		setLevelEnd(root.getRight());
 	}
 	
+	/**
+	 * Recursive method that sets the sibling link of each node such that the
+	 * sibling of a node is to the left of it, along the same level of the 
+	 * tree.
+	 * 
+	 * @param root - the root of a subtree (or of the entire tree)
+	 */
 	void setSiblingLinks(PathNode root)
 	{
 		PathNode parent = root.getParent();
@@ -118,16 +158,19 @@ final class Heap
 		}
 	}
 	
+	/**
+	 * Prints each level of the tree from left to right.
+	 */
 	void printTreeLevels()
-	{
-		// TODO string justification
-		
+	{		
 		String output = "";
 		String level = "Root: ";
 		int levelNum = 0;
 		String siblingStringsConcatenated = "";
+		// The offset necessary to remove a leading arrow.
+		final int offset = 3; 
 		
-		PathNode root = tempPath.get(1);
+		PathNode root = tempPath.get(ROOT_INDEX);
 		ArrayList<String> siblingStrings = new ArrayList<String>();
 		while (root != null)
 		{
@@ -153,7 +196,8 @@ final class Heap
 			
 			siblingStringsConcatenated = 
 				siblingStringsConcatenated.substring(
-				0, siblingStringsConcatenated.length() - 3);		
+				CommonConstants.FIRST_CHAR_INDEX, 
+				siblingStringsConcatenated.length() - offset);		
 
 			output += siblingStringsConcatenated;
 			siblingStringsConcatenated = "";
@@ -166,8 +210,8 @@ final class Heap
 		System.out.println(output);
 	}
 	
-//	void heapify()
-//	{
+	void heapify()
+	{
 //		PathNode start = tempPath.get(tempPath.size() - 1);
 //		
 //		PathNode parent01 = start.getParent();
@@ -221,5 +265,5 @@ final class Heap
 //			
 //			parent01 = parent01.getParent();
 //		}
-//	}
+	}
 }

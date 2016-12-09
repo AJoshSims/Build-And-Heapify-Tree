@@ -1,20 +1,63 @@
 package buildAndHeapifyTree;
 
-public class HeapDriver
+import java.io.FileNotFoundException;
+
+import errors.ExitCodes;
+import errors.InvalidNumOfCmdLineArgsException;
+
+/**
+ * Builds and prints a tree according to a list of paths passed via the command
+ * line as a text file.
+ * 
+ * @author Joshua Sims
+ * @version 09 October, 2016
+ */
+public final class HeapDriver
 {
+	private static final int ACCEPTABLE_NUM_OF_ARGS = 1;
+	
+	private static final int INPUT_FILE_INDEX = 0;
+	
 	public static void main(String[] args)
 	{
-		// TODO remove
-		Heap heap = new Heap();
-		heap.readPaths("input3.txt");
-		heap.buildCompleteTree(heap.tempPath, 1, null);
-		heap.setLevelEnd(heap.tempPath.get(1));
-		heap.setSiblingLinks(heap.tempPath.get(1));
-		heap.printTreeLevels();
+		try
+		{
+			String[] examinedArgs = examineArgs(args);
+			String inputFile = examinedArgs[INPUT_FILE_INDEX];
+			
+			Heap heap = new Heap();
+			heap.readPaths(inputFile);
+			heap.buildCompleteTree(heap.getTempPath(), Heap.ROOT_INDEX, null);
+			heap.setLevelEnd(heap.getTempPath().get(Heap.ROOT_INDEX));
+			heap.setSiblingLinks(heap.getTempPath().get(Heap.ROOT_INDEX));
+			heap.printTreeLevels();
+			
+//			System.out.println("");
+			
+//			heap.heapify();
+//			heap.printTreeLevels();
+		}
 		
-		System.out.println("");
+		catch (InvalidNumOfCmdLineArgsException e)
+		{
+			System.err.println(e.getMessage());
+			System.exit(ExitCodes.INVALID_NUM_OF_CMD_LINE_ARGS);
+		}
+		catch (FileNotFoundException e)
+		{
+			System.err.println(e.getMessage());
+			System.exit(ExitCodes.FILE_NOT_FOUND);
+		}
+	}
+	
+	private static String[] examineArgs(String[] args) 
+		throws InvalidNumOfCmdLineArgsException
+	{
+		if (args.length != ACCEPTABLE_NUM_OF_ARGS)
+		{
+			throw new InvalidNumOfCmdLineArgsException();
+		}
 		
-//		heap.heapify();
-//		heap.printTreeLevels();
+		return args;
 	}
 }
