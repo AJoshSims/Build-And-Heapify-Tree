@@ -1,0 +1,6 @@
+Builds and prints a tree according to a list of paths passed via the 
+command line as a text file.
+
+Heapification has not been implemented for this project.
+
+Usage: java buildAndHeapifyTree/HeapDriver <input_file_path>
